@@ -4,7 +4,7 @@
     <input placeholder="description" type="text" name="description"  class="form-control">
     <input placeholder="accessory" type="text" name="accessory"  class="form-control">
 
-    <button class="btn btn-primary" type="submit" >Créer</button>
+    <button class="btn btn-primary" type="submit" >Ajouter</button>
 
 </form>
 
