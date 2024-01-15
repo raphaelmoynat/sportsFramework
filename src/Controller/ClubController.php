@@ -40,8 +40,8 @@ class ClubController extends \Core\Controller\Controller
             $id = $_GET['id'];
         }
 
-        if(!empty($_POST['idSport'])){$sport_id = $_POST['idSport'];}
-        var_dump($sport_id);
+        if(!empty($_POST['sportId'])){$sport_id = $_POST['sportId'];}
+
 
 
         if(!$id){
@@ -59,6 +59,6 @@ class ClubController extends \Core\Controller\Controller
 
         $clubRepository->delete($club);
 
-        return $this->redirect("?type=club&action=show&id=" . $sport_id);
+        return $this->redirect("?type=sport&action=index");
     }
 }
