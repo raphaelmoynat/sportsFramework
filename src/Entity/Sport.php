@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\ClubRepository;
 use App\Repository\SportRepository;
 use Core\Attributes\Table;
 use Core\Attributes\TargetRepository;
@@ -50,5 +51,12 @@ class Sport
         $this->accessory = $accessory;
     }
 
+
+    public function getClubs():array
+    {
+        $clubRepository = new ClubRepository();
+        $clubs = $clubRepository->findBySport($this);
+        return $clubs;
+    }
 
 }
