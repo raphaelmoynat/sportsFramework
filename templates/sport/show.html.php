@@ -8,7 +8,11 @@
 <div class="border border-dark mt-3 mb-5">
     <h3>Les clubs</h3>
     <?php foreach($sport->getClubs() as $club): ?>
-        <p><strong><?= $club->getName() ?></strong></p>
+
+        <div><strong><?= $club->getName() ?></strong></div>
+        <a href="?type=club&action=delete&id=<?= $club->getId() ?>">Supprimer</a>
+        <input type="hidden" name="idSport" value="<?= $sport->getId() ?>">
+
 
     <?php endforeach; ?>
 </div>

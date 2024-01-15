@@ -13,22 +13,52 @@ class ClubController extends \Core\Controller\Controller
         $name = null;
         $sport_id = null;
 
-
-
         if(!empty($_POST['name'])){$name = $_POST['name'];}
-        if(!empty($_POST['sportId'])){$name = $_POST['sportId'];}
+        if(!empty($_POST['sportId'])){$sport_id = $_POST['sportId'];}
 
         if ($name && $sport_id){
             $club = new Club();
-            $club->setName();
-            $club->setSportId();
+            $club->setName($name);
+            $club->setSportId($sport_id);
 
             $clubRepository = new ClubRepository();
             $clubRepository->save($club);
 
-            return $this->redirect("?type=sport&action=show");
+            return $this->redirect("?type=sport&action=show&id=" . $sport_id);
         }
-        return $this->redirect("type=sport&action=index");
+        return $this->redirect("?type=sport&action=index");
 
+    }
+
+    public function delete():Response
+    {
+        $id = null;
+        $sport_id= null;
+
+        if(!empty($_GET['id']) && ctype_digit($_GET['id']))
+        {
+            $id = $_GET['id'];
+        }
+
+        if(!empty($_POST['idSport'])){$sport_id = $_POST['idSport'];}
+        var_dump($sport_id);
+
+
+        if(!$id){
+            return $this->redirect();
+        }
+
+
+        $clubRepository = new ClubRepository();
+        $club = $clubRepository->find($id);
+
+        if(!$club)
+        {
+            return $this->redirect();
+        }
+
+        $clubRepository->delete($club);
+
+        return $this->redirect("?type=club&action=show&id=" . $sport_id);
     }
 }
