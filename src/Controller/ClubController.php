@@ -32,33 +32,38 @@ class ClubController extends \Core\Controller\Controller
 
     public function delete():Response
     {
-        $id = null;
+        $clubId = null;
         $sport_id= null;
 
         if(!empty($_GET['id']) && ctype_digit($_GET['id']))
         {
-            $id = $_GET['id'];
+            $clubId = $_GET['id'];
         }
 
-        if(!empty($_POST['sportId'])){$sport_id = $_POST['sportId'];}
 
 
-
-        if(!$id){
+        if(!$clubId){
             return $this->redirect();
         }
 
 
         $clubRepository = new ClubRepository();
-        $club = $clubRepository->find($id);
+        $club = $clubRepository->find($clubId);
 
         if(!$club)
         {
             return $this->redirect();
         }
 
+        $sport_id = $club->getSportId();
+
         $clubRepository->delete($club);
 
-        return $this->redirect("?type=sport&action=index");
+        return $this->redirect("?type=sport&action=show&id=$sport_id" );
+    }
+
+    public function edit():Response
+    {
+
     }
 }
