@@ -35,5 +35,16 @@ class ClubRepository extends Repository
         ]);
     }
 
+    public function update(Club $club)
+    {
+        $query = $this->pdo->prepare("UPDATE $this->tableName SET name = :name WHERE id = :id");
+
+        $query->execute([
+            "name"=>$club->getName(),
+            "id" => $club->getId()
+        ]);
+
+    }
+
 
 }

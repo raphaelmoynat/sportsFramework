@@ -118,7 +118,7 @@ class SportController extends Controller
 
             $sport->setName($name);
             $sport->setDescription($description);
-            $sport->setAccessory($accessory);
+            $sport->setAcessory($accessory);
 
             $sportRepository->update($sport);
 
@@ -145,7 +145,6 @@ class SportController extends Controller
             "pageTitle"=> "Un Sport",
             "sport"=>$sport
         ]);
-
 
 
     }

@@ -11,6 +11,8 @@
 
         <div><strong><?= $club->getName() ?></strong></div>
         <a href="?type=club&action=delete&id=<?= $club->getId() ?>">Supprimer</a>
+        <a href="?type=club&action=edit&id=<?= $club->getId() ?>">Modifier</a>
+
         <input type="hidden" name="idSport" value="<?= $sport->getId() ?>">
 
 

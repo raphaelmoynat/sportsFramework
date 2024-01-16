@@ -24,7 +24,7 @@ class ClubController extends \Core\Controller\Controller
             $clubRepository = new ClubRepository();
             $clubRepository->save($club);
 
-            return $this->redirect("?type=sport&action=show&id=" . $sport_id);
+            return $this->redirect("?type=sport&action=show&id=$sport_id");
         }
         return $this->redirect("?type=sport&action=index");
 
@@ -33,19 +33,15 @@ class ClubController extends \Core\Controller\Controller
     public function delete():Response
     {
         $clubId = null;
-        $sport_id= null;
 
         if(!empty($_GET['id']) && ctype_digit($_GET['id']))
         {
             $clubId = $_GET['id'];
         }
 
-
-
         if(!$clubId){
             return $this->redirect();
         }
-
 
         $clubRepository = new ClubRepository();
         $club = $clubRepository->find($clubId);
@@ -64,6 +60,47 @@ class ClubController extends \Core\Controller\Controller
 
     public function edit():Response
     {
+        $idEdit = null;
+        $name = null;
 
+        if(!empty($_POST['idEdit']) && $_POST['idEdit'] != ""){ $idEdit = $_POST['idEdit']; }
+        if(!empty($_POST['name']) && $_POST['name'] != ""){ $name = $_POST['name']; }
+
+        if($idEdit && $name)
+        {
+            $clubRepository = new ClubRepository();
+            $club = $clubRepository->find($idEdit);
+            if(!$club)
+            {
+                return $this->redirect();
+            }
+
+            $club->setName($name);
+            $idSport = $club->getSportId();
+
+            $clubRepository->update($club);
+
+            return $this->redirect("?type=sport&action=show&id=$idSport");
+
+        }
+
+        $id = null;
+
+        if(!empty($_GET["id"]) && ctype_digit($_GET['id']))
+        {
+            $id = $_GET['id'];
+        }
+
+        if(!$id){
+            $this->redirect();
+
+        }
+
+        $clubRepository = new ClubRepository();
+        $club = $clubRepository->find($id);
+        return $this->render("club/edit", [
+            "pageTitle"=> "Modifier un club",
+            "club"=>$club
+        ]);
     }
 }
